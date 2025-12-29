@@ -1,0 +1,60 @@
+{
+  "monitors": [
+    {
+      "id": "forum-announcements",
+      "name": "Announcements Section",
+      "type": "forum",
+      "forum_url": "https://example.foroactivo.com",
+      "section_url": "https://example.foroactivo.com/f5-announcements",
+      "discord_webhook_env": "DISCORD_WEBHOOK_URL",
+      "enabled": true,
+      "_comment": "Monitors for NEW threads posted in this forum section"
+    },
+    {
+      "id": "forum-applications",
+      "name": "User Applications",
+      "type": "forum",
+      "forum_url": "https://example.foroactivo.com",
+      "section_url": "https://example.foroactivo.com/f13-applications",
+      "discord_webhook_env": "DISCORD_WEBHOOK_URL",
+      "enabled": false,
+      "_comment": "Disabled - enable by setting enabled to true"
+    },
+    {
+      "id": "thread-important",
+      "name": "Important Discussion Thread",
+      "type": "thread",
+      "forum_url": "https://example.foroactivo.com",
+      "thread_url": "https://example.foroactivo.com/t123-thread-title",
+      "discord_webhook_env": "DISCORD_WEBHOOK_URL",
+      "enabled": true,
+      "_comment": "Monitors for NEW replies in this specific thread"
+    },
+    {
+      "id": "thread-updates",
+      "name": "Updates & News",
+      "type": "thread",
+      "forum_url": "https://example.foroactivo.com",
+      "thread_url": "https://example.foroactivo.com/t456-updates-news",
+      "discord_webhook_env": "DISCORD_WEBHOOK_URL_2",
+      "enabled": false,
+      "_comment": "Example of using a different Discord webhook"
+    }
+  ],
+  "_instructions": {
+    "monitor_types": {
+      "forum": "Monitors a forum section for NEW threads (posts notifications when someone creates a new thread)",
+      "thread": "Monitors a specific thread for NEW replies (posts notifications when someone replies)"
+    },
+    "required_fields": {
+      "all_monitors": ["id", "name", "type", "forum_url", "discord_webhook_env", "enabled"],
+      "type_forum": ["section_url"],
+      "type_thread": ["thread_url"]
+    },
+    "finding_urls": {
+      "forum_section": "Go to the forum section in your browser and copy the URL (e.g., https://forum.com/f13-section-name)",
+      "thread": "Go to the thread in your browser and copy the URL (e.g., https://forum.com/t123-thread-title)"
+    },
+    "webhook_setup": "Create webhooks in Discord → Server Settings → Integrations → Webhooks, then add them as GitHub Secrets"
+  }
+}

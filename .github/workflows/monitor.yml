@@ -1,0 +1,60 @@
+name: Monitor Foroactivo Forums
+
+on:
+  schedule:
+    # Run every 10 minutes
+    - cron: '*/10 * * * *'
+
+  # Allow manual triggering for testing
+  workflow_dispatch:
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Need to fetch full history to commit state changes
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: |
+          cd foroactivo-discord-monitor
+          poetry install --no-interaction --no-ansi
+
+      - name: Run monitor
+        env:
+          FOROACTIVO_USERNAME: ${{ secrets.FOROACTIVO_USERNAME }}
+          FOROACTIVO_PASSWORD: ${{ secrets.FOROACTIVO_PASSWORD }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          cd foroactivo-discord-monitor
+          poetry run python -m src.monitor
+
+      - name: Commit state changes
+        run: |
+          cd foroactivo-discord-monitor
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add state.json
+          # Only commit if there are changes
+          git diff --staged --quiet || git commit -m "Update monitor state [skip ci]"
+
+      - name: Push state changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          directory: foroactivo-discord-monitor
+          branch: ${{ github.ref }}
