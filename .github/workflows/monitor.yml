@@ -2,8 +2,8 @@ name: Monitor Foroactivo Forums
 
 on:
   schedule:
-    # Run every 10 minutes
-    - cron: '*/10 * * * *'
+    # Run every 15 minutes
+    - cron: '*/15 * * * *'
 
   # Allow manual triggering for testing
   workflow_dispatch:
