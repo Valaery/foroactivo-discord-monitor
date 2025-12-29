@@ -8,6 +8,10 @@ on:
   # Allow manual triggering for testing
   workflow_dispatch:
 
+# Grant permissions to push state changes
+permissions:
+  contents: write
+
 jobs:
   monitor:
     runs-on: ubuntu-latest
