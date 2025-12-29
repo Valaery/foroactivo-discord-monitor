@@ -1,0 +1,22 @@
+{
+  "monitors": [
+    {
+      "id": "forum-certificados",
+      "name": "Certificados de Aventura",
+      "type": "forum",
+      "forum_url": "https://genshin-impact-fa.foroactivo.com",
+      "section_url": "https://genshin-impact-fa.foroactivo.com/f13-certificados-de-aventura",
+      "discord_webhook_env": "DISCORD_WEBHOOK_URL",
+      "enabled": true
+    },
+    {
+      "id": "thread-1",
+      "name": "My Important Thread",
+      "type": "thread",
+      "forum_url": "https://genshin-impact-fa.foroactivo.com",
+      "thread_url": "https://genshin-impact-fa.foroactivo.com/t31-ficha-nueva#32",
+      "discord_webhook_env": "DISCORD_WEBHOOK_URL",
+      "enabled": false
+    }
+  ]
+}

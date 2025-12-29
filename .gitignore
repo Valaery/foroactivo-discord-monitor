@@ -50,7 +50,7 @@ htmlcov/
 Thumbs.db
 
 # Local configuration (user should copy from .example files)
-config/threads.json
+# config/threads.json  # Commented out - we're committing the actual config for personal use
 
 # State file should be committed (not ignored)
 # This file tracks the last seen posts
