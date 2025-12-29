@@ -30,22 +30,17 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Install dependencies
-        run: |
-          cd foroactivo-discord-monitor
-          poetry install --no-interaction --no-ansi
+        run: poetry install --no-interaction --no-ansi
 
       - name: Run monitor
         env:
           FOROACTIVO_USERNAME: ${{ secrets.FOROACTIVO_USERNAME }}
           FOROACTIVO_PASSWORD: ${{ secrets.FOROACTIVO_PASSWORD }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: |
-          cd foroactivo-discord-monitor
-          poetry run python -m src.monitor
+        run: poetry run python -m src.monitor
 
       - name: Commit state changes
         run: |
-          cd foroactivo-discord-monitor
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add state.json
@@ -56,5 +51,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          directory: foroactivo-discord-monitor
           branch: ${{ github.ref }}
